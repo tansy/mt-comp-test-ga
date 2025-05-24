@@ -8,24 +8,22 @@ on:
 
 jobs:
   build:
-    name: Build
+    name: build
     runs-on: ubuntu-latest
     needs: [ Development ]
     steps:
       - uses: actions/checkout@v4
       - name: Build
-        run: sh 1b-prep-dl2.sh
-  dev:
-    name: Development
-    steps:
-      - name: Run the developer
+        run:
+          sh 1b-prep-dl2.sh
+          sh 1c-prep-comp.sh
   corpus:
-    name: Corpus
+    name: corpus
     steps:
       - name: Run the developer
         run: sh 1a-prep-dl1.sh
   test:
-    needs: [ build, corpus, dev ]
+    needs: [ build, corpus ]
     name: Testing
     steps:
       - name: Testing the application
