@@ -1,0 +1,22 @@
+# bak
+*~
+
+# obj
+*.o
+*.obj
+
+# lib
+*.lib
+*.a
+
+# so
+*.dll
+*.so
+*.so.*
+*.dylib
+
+# exe
+*.exe
+*.out
+*.app
+
