@@ -5,13 +5,13 @@ echo; echo "#### $0 ####"; echo
 [ -z $THREADS ] && THREADS=16
 NPROC=$(nproc); if [ $NPROC -lt $THREADS ]; then THREADS=$NPROC; fi
 THREADS=1
-echo "using $THREADS threads"
+echo "using $THREADS threads"; echo
 
 #ARCHIVE="$1"
 [ -z $ARCHIVE ] && ARCHIVE="silesia.tar.1G"
 
 NULLDEV=/dev/null
-UNAME=`uname`; if [ "${UNAME:0:5}" = "MINGW" ]; then NULLDEV=nul; fi
+UNAME=$(uname | head -c 5 -); if [ "$UNAME" = "MINGW" ]; then NULLDEV=nul; fi
 NULLDEV=out
 
 reps_lv()
