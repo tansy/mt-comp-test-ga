@@ -1,0 +1,74 @@
+#!/bin/sh
+
+echo; echo "#### $0 ####"; echo
+
+[ -z $THREADS ] && THREADS=16
+NPROC=$(nproc); if [ $NPROC -lt $THREADS ]; then THREADS=$NPROC; fi
+THREADS=1
+echo "using $THREADS threads"
+
+ARCHIVE="$1"
+[ -z $ARCHIVE ] && ARCHIVE="silesia.tar.1G"
+
+NULLDEV=/dev/null
+UNAME=`uname`; if [ "${UNAME:0:5}" = "MINGW" ]; then NULLDEV=nul; fi
+NULLDEV=out
+
+reps_lv()
+    {
+    case "$1" in
+    1) echo 1 ;;
+    5) echo 1 ;;
+    9) echo 1 ;;
+    esac
+    }
+
+reps_th()
+    {
+    case "$1" in
+    [1-5]) echo 1 ;;
+    [6-10]) echo 1 ;;
+    [11-16]) echo 1 ;;
+    esac
+    }
+
+max()
+    {
+    a=$1; b=$2;
+    echo $(( a > b ? a : b ))
+    }
+
+if [ -n $ARCHIVE ]; then
+    ARC="$ARCHIVE"
+else
+    echo empty archive, use default
+    ARC="silesia.tar"
+fi
+#echo $arc
+[ -f $ARC ] || { echo file "$ARC" not found; exit 1; }
+
+PAK=./bzip2
+EXT=.bz2
+OPTS=
+OPT_TH=
+LEVELS="1 5 9"
+REPS=1
+
+for lv in $LEVELS; do
+    echo "## $PAK -$lv"
+    echo
+    for ((th=1; th<=$THREADS; th++)); do
+        #CMD="$PAK -$lv $OPTS $OPT_TH$th -f -c $ARC > $NULLDEV"
+        CMD="$PAK -$lv $OPTS -f -c $ARC > $NULLDEV"
+        REPS=`max $(reps_lv $lv) $(reps_th $th)`
+        echo $ $CMD "xx $REPS"
+        time for ((i=0; i<$REPS; i++)); do
+            eval $CMD
+        done # for $reps
+        echo
+    done # for th;
+
+    CMD="$PAK -$lv $OPTS -f -c $ARC > $ARC$EXT-$lv"
+    eval $CMD
+done # for lv;
+

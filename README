@@ -1,0 +1,19 @@
+Multi-threading compressors test.
+They include pbzip2, pigz, plzip, pixz, zstd, zstd-mt.
+
+
+Run ./1-prep.sh to prepare programs (download and compile).
+Then ./2-test.sh to do the test.
+
+In windoze run MSYS terminal with msys_rxvt.bat, msys_mintty.bat or msys_cmd.bat,
+whichever runs first. Then in terminal go to the test directory, i.e.:
+~~~
+C:\temp\mt-comp-test_msys \> msys_rxvt.bat
+
+$ cd "C:\temp\mt-comp-test_msys"
+$ ./1-prep.sh
+$ ./2-test.sh
+~~~
+
+in *nix use /tmp.
+
