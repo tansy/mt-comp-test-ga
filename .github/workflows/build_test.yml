@@ -13,28 +13,19 @@ jobs:
     needs: [ ]
     steps:
       - uses: actions/checkout@v4
-      - name: Build
-        run: |
-          pwd
-          ls -l
-          sh 1b-prep-dl2.sh
-          sh 1c-prep-comp.sh
+      - name: Build (pwd)
+        run: pwd
   corpus:
     name: Corpus
     runs-on: ubuntu-latest
     steps:
-      - name: download corpus
-        run: |
-          pwd
-          ls -l
-          sh 1a-prep-dl1.sh
+      - name: download corpus (ls -l)
+        run: ls -l
   test:
     needs: [ build, corpus ]
     name: Test
     runs-on: ubuntu-latest
     steps:
       - name: Testing the application
-        run: |
-          pwd
-          ls -l
-          sh 2-test.sh
+        run: sh 2-test.sh
+
