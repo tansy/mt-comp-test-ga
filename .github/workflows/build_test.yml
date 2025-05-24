@@ -8,9 +8,9 @@ on:
 
 jobs:
   build:
-    name: build
+    name: Build
     runs-on: ubuntu-latest
-    needs: [ Development ]
+    needs: [ ]
     steps:
       - uses: actions/checkout@v4
       - name: Build
@@ -18,14 +18,14 @@ jobs:
           sh 1b-prep-dl2.sh
           sh 1c-prep-comp.sh
   corpus:
-    name: corpus
+    name: Corpus
     runs-on: ubuntu-latest
     steps:
       - name: Run the developer
         run: sh 1a-prep-dl1.sh
   test:
     needs: [ build, corpus ]
-    name: Testing
+    name: Test
     runs-on: ubuntu-latest
     steps:
       - name: Testing the application
