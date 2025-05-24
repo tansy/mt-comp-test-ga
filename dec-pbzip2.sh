@@ -66,9 +66,9 @@ for lv in $LEVELS; do
         echo $ $CMD "xx $REPS"
         time for ((i=0; i<$REPS; i++)); do
             eval $CMD
-        sleepts
         done # for th;
-    echo
+        sleepts
+        echo
     done
     echo
 done # for lv;

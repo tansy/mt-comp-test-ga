@@ -57,7 +57,7 @@ fi
 
 PAK=./zstd-mt
 EXT=.zst
-OPTS=-b64
+OPTS= #-b64
 OPT_TH=-T
 LEVELS="1 12 19"
 REPS=1
