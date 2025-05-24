@@ -21,8 +21,11 @@ jobs:
     name: Corpus
     runs-on: ubuntu-latest
     steps:
-      - name: Run the developer
-        run: sh 1a-prep-dl1.sh
+      - name: download corpus
+        run:
+          pwd
+          ls -l
+          sh 1a-prep-dl1.sh
   test:
     needs: [ build, corpus ]
     name: Test
